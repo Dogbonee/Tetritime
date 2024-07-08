@@ -27,7 +27,7 @@ DailyGame::DailyGame(StateMachine &sm, sf::RenderWindow &window) : Game(sm, wind
     std::getline(file, cPieceBuf);
     std::getline(file, nPieceBuf);
     std::getline(file, hPieceBuf);
-    std::cout<<"Time: " << dateBuf << "  Score: "<< scoreBuf << "\n";
+
 
 
 
@@ -44,7 +44,7 @@ DailyGame::DailyGame(StateMachine &sm, sf::RenderWindow &window) : Game(sm, wind
 
     }catch (std::exception& e)
     {
-        std::cout<<"Save file has been corrupted or does not exist\n";
+
         loadedPiece = static_cast<PieceType>(std::rand() % 7);
         nextPiece = static_cast<PieceType>(std::rand() % 7);
         holdPiece = -1;

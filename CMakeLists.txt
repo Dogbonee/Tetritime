@@ -1,7 +1,6 @@
 cmake_minimum_required(VERSION 3.21)
-project(Tetris)
+project(Tetritime)
 
-set(SFML_DIR C:/StudentFiles/Student/SFML-2.6.1/lib/cmake/SFML)
 set(CMAKE_CXX_STANDARD 17)
 set(SOURCE_FILES src/main.cpp
         src/Game.cpp
@@ -31,10 +30,10 @@ set(SOURCE_FILES src/main.cpp
         src/BlitzGame.cpp
         src/BlitzGame.h
 )
-set(SFML_STATIC_LIBRARIES true)
+
 
 add_executable(${PROJECT_NAME} ${SOURCE_FILES})
 
 find_package(SFML COMPONENTS system window graphics audio CONFIG REQUIRED)
 target_link_libraries(${PROJECT_NAME} PRIVATE sfml-system sfml-network sfml-graphics sfml-window sfml-audio)
-target_link_libraries(${PROJECT_NAME} PRIVATE -static)
+

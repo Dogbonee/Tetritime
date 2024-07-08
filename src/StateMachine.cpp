@@ -12,7 +12,7 @@
 StateMachine::StateMachine() :m_window {sf::VideoMode(System::WIDTH, System::HEIGHT), "Tetris", sf::Style::Close},
 m_shouldGameReset(false)
 {
-    std::cout<<"Starting state machine\n";
+
 }
 
 StateMachine::~StateMachine()
@@ -52,7 +52,7 @@ void StateMachine::UpdateState()
 
 void StateMachine::Run()
 {
-    std::cout<<"Game setup successful. Running...\n";
+
     m_window.setFramerateLimit(60);
 
     GlobalResources::GameMusic.setLoop(true);
@@ -88,7 +88,6 @@ void StateMachine::SwitchState(StateName state)
 {
 
     //get a pointer to the selected state and set it as the current state
-    std::cout<<"Switching to state " << state << "\n";
     p_currentState = m_states[state];
     m_currentStateType = state;
 }

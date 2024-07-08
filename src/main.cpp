@@ -1,8 +1,8 @@
 #include "StateMachine.h"
-#include <Windows.h>
+
 int main()
 {
-    ShowWindow( GetConsoleWindow(), SW_HIDE );
+
     GlobalResources::LoadResources();
     StateMachine sm;
 

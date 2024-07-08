@@ -91,7 +91,7 @@ protected:
     void HandleNextPiece(PieceType type = static_cast<PieceType>(std::rand() % 7));
     void HoldPiece();
     virtual void DropPiece();
-    void GameOver();
+    void TriggerGameOver();
 };
 
 

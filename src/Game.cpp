@@ -187,7 +187,7 @@ void Game::SpawnPiece(PieceType type)
         {
             if(m_board[y][5+x] > 5)
             {
-                GameOver();
+                TriggerGameOver();
             }
             m_board[y][5+x] = m_currentPiece.GetPieceArray()[y][x] * 2;
 
@@ -300,7 +300,6 @@ void Game::HandleScoring()
     //Speed length needs to shorten every time the default tick length is shortened,
     //otherwise pressing the down arrow would eventually be slower than the default speed.
     m_speedTickLength = m_defaultTickLength / 10;
-    std::cout<<"Score: "<<m_score << " Tick length: " << m_defaultTickLength << '\n';
     setScore();
 }
 
@@ -388,7 +387,7 @@ void Game::DropPiece()
 }
 
 //Set the bool game over to true and set the final score in the game over screen
-void Game::GameOver()
+void Game::TriggerGameOver()
 {
 
     m_isGameOver = true;

@@ -19,7 +19,7 @@ void GlobalResources::LoadResources()
         }
     }
 
-    if(!GameMusic.openFromFile("../res/Adventure.mp3"))
+    if(!GameMusic.openFromFile("../res/Adventure.wav"))
     {
         exit(1);
     }
@@ -28,7 +28,7 @@ void GlobalResources::LoadResources()
     {
         exit(1);
     }
-    if(!ClearBuffer.loadFromFile("../res/ClearLine.mp3"))
+    if(!ClearBuffer.loadFromFile("../res/ClearLine.wav"))
     {
         exit(1);
     }
