@@ -9,14 +9,12 @@
 #include <vector>
 
 
-
 using std::vector;
 
 enum RotationOption : int;
 enum MovementOption : int;
 
-enum PieceType : int{
-
+enum PieceType : int {
     O_BLOCK = 0,
     I_BLOCK,
     S_BLOCK,
@@ -24,42 +22,48 @@ enum PieceType : int{
     L_BLOCK,
     J_BLOCK,
     T_BLOCK
-
 };
 
 
+typedef vector<vector<uint8_t> > PieceArray;
 
-typedef vector<vector<uint8_t>> PieceArray;
-class Piece : public sf::Drawable{
-
+class Piece : public sf::Drawable {
     PieceArray m_piece;
     vector<sf::RectangleShape> m_pieceVisual;
     PieceType m_type;
     int m_level;
 
     void generatePieceArray(int type);
+
     void generatePieceVisual();
 
-
 public:
-
     Piece(PieceType type);
-    void draw(sf::RenderTarget& target, sf::RenderStates states) const override;
+
+    void draw(sf::RenderTarget &target, sf::RenderStates states) const override;
 
     void Move(MovementOption direction);
+
     void Fall();
+
     void RotateVisual(RotationOption direction);
+
     void MakeTransparent();
 
     PieceType GetType();
-    const PieceArray & GetPieceArray() const;
+
+    const PieceArray &GetPieceArray() const;
+
     int GetLevel();
+
     sf::Vector2f GetPosition() const;
-    void SetPosition(const sf::Vector2f& position);
-    const vector<sf::RectangleShape>& GetPieceVisual() const;
+
+    void SetPosition(const sf::Vector2f &position);
+
+    const vector<sf::RectangleShape> &GetPieceVisual() const;
+
     void EraseVisualRect(int rect);
 };
-
 
 
 #endif //PIECE_H

@@ -8,10 +8,7 @@
 #include "StateMachine.h"
 
 
-class Menu : public State{
-
-
-
+class Menu : public State {
     sf::Text m_titleLabel;
 
     std::vector<Button> m_buttons;
@@ -21,28 +18,25 @@ class Menu : public State{
     Button m_blitzButton;
 
     void StartStandardGame();
+
     void StartDailyGame();
+
     void StartFourtyLineGame();
+
     void StartBlitzGame();
 
 protected:
-
     void Render() override;
+
     void HandleKeyboardInput(sf::Keyboard::Key keyCode) override;
+
     void HandleEvents() override;
 
-
-
 public:
-    Menu(StateMachine& sm, sf::RenderWindow& window);
+    Menu(StateMachine &sm, sf::RenderWindow &window);
 
-    void Update(const float& dt) override;
-
-
-
-
+    void Update(const float &dt) override;
 };
-
 
 
 #endif //MENU_H

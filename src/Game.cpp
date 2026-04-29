@@ -18,7 +18,8 @@ Game::Game(StateMachine &sm, sf::RenderWindow &window) : State(sm, window),
                                                          m_ghostPiece(m_currentPiece),
                                                          m_nextPiecePosition(650, 100), m_holdPiecePosition(650, 250),
                                                          m_hasHeld(false), m_hasHeldThisTurn(false),
-                                                         m_isGameOver(false), m_score(0), m_menuButton(sf::Vector2f(150,75), "Menu"),
+                                                         m_isGameOver(false), m_score(0),
+                                                         m_menuButton(sf::Vector2f(150, 75), "Menu"),
                                                          m_clearedLineCount(0)
 {
     m_scoreLabel.setFont(GlobalResources::BlockFont);
@@ -54,7 +55,6 @@ Game::Game(StateMachine &sm, sf::RenderWindow &window) : State(sm, window),
     };
 
 
-
     setScore();
 
     //Init all ui before this point, because now we're running game functions
@@ -67,10 +67,9 @@ Game::Game(StateMachine &sm, sf::RenderWindow &window) : State(sm, window),
 
 void Game::Render()
 {
-
     p_window->draw(m_fpsCounter);
     p_window->draw(m_menuButton);
-    if(m_isGameOver)
+    if (m_isGameOver)
     {
         p_window->draw(m_gameOverScreen);
         return;
@@ -83,40 +82,37 @@ void Game::Render()
     p_window->draw(m_holdLabel);
     p_window->draw(m_nextLabel);
 
-    if(m_currentPiece.GetPosition() != m_ghostPiece.GetPosition())
+    if (m_currentPiece.GetPosition() != m_ghostPiece.GetPosition())
     {
         p_window->draw(m_ghostPiece);
     }
-    if(m_hasHeld)
+    if (m_hasHeld)
     {
         p_window->draw(m_holdPiece);
     }
-
 }
 
 void Game::HandleEvents()
 {
-    for(sf::Event event{}; p_window->pollEvent(event);)
+    for (sf::Event event{}; p_window->pollEvent(event);)
     {
-        switch(event.type)
+        switch (event.type)
         {
             case sf::Event::Closed:
                 p_window->close();
-            break;
+                break;
             case sf::Event::KeyPressed:
                 //Key repeat enabled
-                    HandleKeyboardInput(event.key.code);
-            break;
+                HandleKeyboardInput(event.key.code);
+                break;
             case sf::Event::MouseMoved:
                 m_menuButton.ButtonUpdate(sf::Vector2i(event.mouseMove.x, event.mouseMove.y));
-            break;
+                break;
             case sf::Event::MouseButtonReleased:
-                if(event.mouseButton.button == sf::Mouse::Left)
+                if (event.mouseButton.button == sf::Mouse::Left)
                 {
                     m_menuButton.Activate();
                 }
-
-
         }
     }
 }
@@ -124,16 +120,16 @@ void Game::HandleEvents()
 
 void Game::HandleKeyboardInput(sf::Keyboard::Key keyCode)
 {
-    switch(keyCode)
+    switch (keyCode)
     {
         case sf::Keyboard::Right:
-            if(!m_board.WillCollide(MOVE_RIGHT))
+            if (!m_board.WillCollide(MOVE_RIGHT))
             {
                 MovePieceComponents(MOVE_RIGHT);
             }
             break;
         case sf::Keyboard::Left:
-            if(!m_board.WillCollide((MOVE_LEFT)))
+            if (!m_board.WillCollide((MOVE_LEFT)))
             {
                 MovePieceComponents(MOVE_LEFT);
             }
@@ -145,7 +141,7 @@ void Game::HandleKeyboardInput(sf::Keyboard::Key keyCode)
             DropPiece();
             break;
         case sf::Keyboard::C:
-            if(!m_hasHeldThisTurn)
+            if (!m_hasHeldThisTurn)
             {
                 HoldPiece();
             }
@@ -153,7 +149,7 @@ void Game::HandleKeyboardInput(sf::Keyboard::Key keyCode)
     }
 }
 
-void Game::Update(const float& dt)
+void Game::Update(const float &dt)
 {
     //should handle in other function in future
     //If the down arrow is pressed, the tick length should be way less
@@ -169,7 +165,7 @@ void Game::setScore()
     //Set scoreText string and reposition it
     m_scoreText.setString(std::to_string(m_score));
     m_scoreText.setOrigin(System::CenterTextOrigin(m_scoreText));
-    m_scoreText.setPosition(120,200);
+    m_scoreText.setPosition(120, 200);
 }
 
 //Add a new piece to the array
@@ -181,32 +177,30 @@ void Game::SpawnPiece(PieceType type)
     m_currentType = type;
     m_board.SetCurrentPieceType(type);
     int pieceSize = m_currentPiece.GetPieceArray().size();
-    for(int y = 0; y < pieceSize; y++)
+    for (int y = 0; y < pieceSize; y++)
     {
-        for(int x = 0; x < pieceSize; x++)
+        for (int x = 0; x < pieceSize; x++)
         {
-            if(m_board[y][5+x] > 5)
+            if (m_board[y][5 + x] > 5)
             {
                 TriggerGameOver();
             }
-            m_board[y][5+x] = m_currentPiece.GetPieceArray()[y][x] * 2;
-
+            m_board[y][5 + x] = m_currentPiece.GetPieceArray()[y][x] * 2;
         }
     }
-
 }
 
 
-void Game::ManageGameClock(const float& dt)
+void Game::ManageGameClock(const float &dt)
 {
     static float tickTimeRemaining = m_tickLength;
     tickTimeRemaining -= dt;
 
-    if(tickTimeRemaining <= 0 || tickTimeRemaining > m_tickLength)
+    if (tickTimeRemaining <= 0 || tickTimeRemaining > m_tickLength)
     {
         Tick();
         tickTimeRemaining = m_tickLength;
-        m_fpsCounter.setString("FPS: " + std::to_string(static_cast<int>(round(1/dt))));
+        m_fpsCounter.setString("FPS: " + std::to_string(static_cast<int>(round(1 / dt))));
     }
 }
 
@@ -214,9 +208,9 @@ void Game::ManageGameClock(const float& dt)
 //Returns whether piece can tick again without colliding
 bool Game::Tick()
 {
-    if(m_isGameOver)return false;
+    if (m_isGameOver)return false;
     //Check collision
-    if(!m_board.WillCollide(MOVE_DOWN))
+    if (!m_board.WillCollide(MOVE_DOWN))
     {
         m_currentPiece.Fall();
         m_board.FallPiece();
@@ -244,8 +238,8 @@ void Game::MovePieceComponents(MovementOption direction)
 //Rotates the array, visual, and ghost pieces all at once
 void Game::RotatePieceComponents(RotationOption direction)
 {
-    if(m_currentType == O_BLOCK) return;
-    if(m_board.RotatePiece(direction))
+    if (m_currentType == O_BLOCK) return;
+    if (m_board.RotatePiece(direction))
     {
         m_currentPiece.RotateVisual(direction);
         ManageGhostPiece();
@@ -256,11 +250,11 @@ void Game::RotatePieceComponents(RotationOption direction)
 void Game::HandleScoring()
 {
     std::vector<int> completedLines = m_board.CheckLines();
-    if(completedLines.size() == 0)return;
+    if (completedLines.empty())return;
     m_clearedLineCount += completedLines.size();
     m_clearSound.play();
     int earnedScore = 0;
-    switch(completedLines.size())
+    switch (completedLines.size())
     {
         case 1:
             earnedScore = 100;
@@ -277,25 +271,25 @@ void Game::HandleScoring()
     }
     m_score += earnedScore;
 
-    if(m_score > 4000)
+    if (m_score > 4000)
     {
-        m_defaultTickLength =System::m_levelTwoTick;
+        m_defaultTickLength = System::m_levelTwoTick;
     }
-    if(m_score > 12000)
+    if (m_score > 12000)
     {
-        m_defaultTickLength =System::m_levelThreeTick;
+        m_defaultTickLength = System::m_levelThreeTick;
     }
-    if(m_score > 24000)
+    if (m_score > 24000)
     {
-        m_defaultTickLength =System::m_levelFourTick;
+        m_defaultTickLength = System::m_levelFourTick;
     }
-    if(m_score > 40000)
+    if (m_score > 40000)
     {
-        m_defaultTickLength =System::m_levelFiveTick;
+        m_defaultTickLength = System::m_levelFiveTick;
     }
-    if(m_score > 60000)
+    if (m_score > 60000)
     {
-        m_defaultTickLength =System::m_levelSixTick;
+        m_defaultTickLength = System::m_levelSixTick;
     }
     //Speed length needs to shorten every time the default tick length is shortened,
     //otherwise pressing the down arrow would eventually be slower than the default speed.
@@ -307,7 +301,7 @@ void Game::HandleScoring()
 void Game::HandleGhostPiece()
 {
     //We can simulate a fallen piece by finding the lowest spot that the current piece can go
-    while(!m_ghostBoard.WillCollide(MOVE_DOWN))
+    while (!m_ghostBoard.WillCollide(MOVE_DOWN))
     {
         m_ghostPiece.Fall();
         m_ghostBoard.FallPiece();
@@ -335,7 +329,7 @@ void Game::HandleNextPiece(PieceType type)
 {
     m_nextPiece = {type};
     m_nextPiece.SetPosition(m_nextPiecePosition);
-    if(m_nextPiece.GetType() == I_BLOCK || m_nextPiece.GetType() == O_BLOCK)
+    if (m_nextPiece.GetType() == I_BLOCK || m_nextPiece.GetType() == O_BLOCK)
     {
         m_nextPiece.SetPosition(sf::Vector2f(m_nextPiecePosition.x, m_nextPiecePosition.y + System::PIECE_SIZE));
     }
@@ -344,16 +338,14 @@ void Game::HandleNextPiece(PieceType type)
 //Holds a piece
 void Game::HoldPiece()
 {
-
     //clear currentpiece from board
-    for(int y = 0; y < 21; y++)
+    for (int y = 0; y < 21; y++)
     {
-        for(int x = 0; x < 12; x++)
+        for (int x = 0; x < 12; x++)
         {
-            if(m_board[y][x] == 2)
+            if (m_board[y][x] == 2)
             {
                 m_board[y][x] = 0;
-
             }
         }
     }
@@ -365,7 +357,7 @@ void Game::HoldPiece()
     SpawnPiece(m_hasHeld ? m_holdPiece.GetType() : m_nextPiece.GetType());
     m_holdPiece = {currentType};
     m_holdPiece.SetPosition(m_holdPiecePosition);
-    if(m_holdPiece.GetType() == I_BLOCK || m_holdPiece.GetType() == O_BLOCK)
+    if (m_holdPiece.GetType() == I_BLOCK || m_holdPiece.GetType() == O_BLOCK)
     {
         m_holdPiece.SetPosition(sf::Vector2f(m_holdPiecePosition.x, m_holdPiecePosition.y + System::PIECE_SIZE));
     }
@@ -381,15 +373,14 @@ void Game::HoldPiece()
 //Runs Tick until it returns collision
 void Game::DropPiece()
 {
-    if(m_isGameOver)return;
-    while(Tick());
+    if (m_isGameOver)return;
+    while (Tick());
     m_placeSound.play();
 }
 
 //Set the bool game over to true and set the final score in the game over screen
 void Game::TriggerGameOver()
 {
-
     m_isGameOver = true;
     m_gameOverScreen.SetGameOverScore(m_score);
 }

@@ -41,12 +41,9 @@ class StateMachine {
 
     bool m_shouldGameReset;
 
-
-
-
 public:
     StateMachine();
-    ~StateMachine();
+    ~StateMachine() = default;
     void Run();
     void SwitchState(StateName state);
     void AddState();

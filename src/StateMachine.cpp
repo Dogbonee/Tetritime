@@ -9,17 +9,11 @@
 
 
 
-StateMachine::StateMachine() :m_window {sf::VideoMode(System::WIDTH, System::HEIGHT), "Tetris", sf::Style::Close},
+StateMachine::StateMachine() :m_window {sf::VideoMode(System::WIDTH, System::HEIGHT), "Tetritime", sf::Style::Close},
 m_shouldGameReset(false)
 {
 
 }
-
-StateMachine::~StateMachine()
-{
-
-}
-
 
 void StateMachine::UpdateState()
 {
@@ -52,14 +46,11 @@ void StateMachine::UpdateState()
 
 void StateMachine::Run()
 {
-
     m_window.setFramerateLimit(60);
 
     GlobalResources::GameMusic.setLoop(true);
     GlobalResources::GameMusic.setVolume(15);
     GlobalResources::GameMusic.play();
-
-
 
     UpdateState();
 }
@@ -86,7 +77,6 @@ void StateMachine::ResetGame()
 
 void StateMachine::SwitchState(StateName state)
 {
-
     //get a pointer to the selected state and set it as the current state
     p_currentState = m_states[state];
     m_currentStateType = state;

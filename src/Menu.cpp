@@ -9,7 +9,8 @@
 Menu::Menu(StateMachine &sm, sf::RenderWindow &window) : State(sm, window),
                                                          m_standardButton(sf::Vector2f(300, 125), "Play Standard"),
                                                          m_dailyButton(sf::Vector2f(300, 125), "Play Daily"),
-m_fLineButton(sf::Vector2f(300,125), "Play 40 Lines"), m_blitzButton(sf::Vector2f(300,125), "Play Blitz")
+                                                         m_fLineButton(sf::Vector2f(300, 125), "Play 40 Lines"),
+                                                         m_blitzButton(sf::Vector2f(300, 125), "Play Blitz")
 {
     m_titleLabel.setFont(GlobalResources::BlockFont);
     m_titleLabel.setCharacterSize(140);
@@ -21,13 +22,13 @@ m_fLineButton(sf::Vector2f(300,125), "Play 40 Lines"), m_blitzButton(sf::Vector2
     m_standardButton.setPosition(System::WIDTH / 4, System::HEIGHT / 2);
     m_standardButton.setColor(sf::Color::Red);
 
-    m_dailyButton.setPosition(System::WIDTH * 3/4, System::HEIGHT / 2);
+    m_dailyButton.setPosition(System::WIDTH * 3 / 4, System::HEIGHT / 2);
     m_dailyButton.setColor(sf::Color::Green);
 
-    m_fLineButton.setPosition(System::WIDTH/4, System::HEIGHT * 3/4);
+    m_fLineButton.setPosition(System::WIDTH / 4, System::HEIGHT * 3 / 4);
     m_fLineButton.setColor(sf::Color::Blue);
 
-    m_blitzButton.setPosition(System::WIDTH * 3/4, System::HEIGHT * 3/4);
+    m_blitzButton.setPosition(System::WIDTH * 3 / 4, System::HEIGHT * 3 / 4);
     m_blitzButton.setColor(sf::Color::Yellow);
 
     m_standardButton.callback = [this] { StartStandardGame(); };
@@ -63,45 +64,40 @@ void Menu::StartBlitzGame()
 
 void Menu::Render()
 {
-
     p_window->draw(m_titleLabel);
-    for(auto& button : m_buttons) p_window->draw(button);
-
+    for (auto &button: m_buttons) p_window->draw(button);
 }
 
 void Menu::HandleKeyboardInput(sf::Keyboard::Key keyCode)
 {
-
 }
 
 void Menu::HandleEvents()
 {
-    for(sf::Event event{}; p_window->pollEvent(event);)
+    for (sf::Event event{}; p_window->pollEvent(event);)
     {
-        switch(event.type)
+        switch (event.type)
         {
             case sf::Event::Closed:
                 p_window->close();
-            break;
+                break;
             case sf::Event::KeyPressed:
                 //Key repeat enabled
-                    HandleKeyboardInput(event.key.code);
-            break;
+                HandleKeyboardInput(event.key.code);
+                break;
             case sf::Event::MouseMoved:
-                for(auto& button : m_buttons)button.ButtonUpdate(sf::Vector2i(event.mouseMove.x,event.mouseMove.y));
+                for (auto &button: m_buttons)button.ButtonUpdate(sf::Vector2i(event.mouseMove.x, event.mouseMove.y));
                 break;
             case sf::Event::MouseButtonReleased:
-                if(event.mouseButton.button == sf::Mouse::Left)
+                if (event.mouseButton.button == sf::Mouse::Left)
                 {
-                    for(auto& button : m_buttons)button.Activate();
+                    for (auto &button: m_buttons)button.Activate();
                 }
-
-
         }
     }
 }
 
-void Menu::Update(const float& dt)
+void Menu::Update(const float &dt)
 {
     HandleEvents();
     Render();

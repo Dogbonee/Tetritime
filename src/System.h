@@ -16,9 +16,9 @@ public:
     static constexpr int BOARD_WIDTH = 12;
     static constexpr int BOARD_HEIGHT = 21;
     static constexpr float PIECE_SIZE = 25;
-    static constexpr int X_MIDDLE = WIDTH/2 + 13;
-    static constexpr int X_OFFSET = X_MIDDLE - PIECE_SIZE * 6 - PIECE_SIZE/2;
-    static constexpr int Y_OFFSET = 85;
+    static constexpr int X_MIDDLE = WIDTH / 2 + 13;
+    static constexpr int X_OFFSET = X_MIDDLE - PIECE_SIZE * 6 - PIECE_SIZE / 2 + 1;
+    static constexpr int Y_OFFSET = 87;
 
     static constexpr float m_levelOneTick = 1.f;
     static constexpr float m_levelTwoTick = 0.75f;
@@ -28,10 +28,9 @@ public:
     static constexpr float m_levelSixTick = 0.05f;
 
     static sf::Color ColorPiece(PieceType type);
+
     static sf::Vector2f CenterTextOrigin(sf::Text text);
 };
-
-
 
 
 #endif //SYSTEM_H

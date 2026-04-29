@@ -7,9 +7,7 @@
 #include <functional>
 #include "System.h"
 
-class Button : public sf::Drawable{
-
-
+class Button : public sf::Drawable {
     sf::RectangleShape m_buttonShape;
     sf::Text m_buttonText;
     bool m_hovered;
@@ -19,19 +17,22 @@ public:
     Button(sf::Vector2f size, sf::String text);
 
 
-    virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const;
+    virtual void draw(sf::RenderTarget &target, sf::RenderStates states) const;
+
     void setColor(sf::Color color);
-    void setPosition(const sf::Vector2f& position);
+
+    void setPosition(const sf::Vector2f &position);
+
     void setPosition(float x, float y);
+
     void ButtonUpdate(sf::Vector2i mousePos);
+
     void Activate();
 
     void setTextSize(unsigned int size);
 
     std::function<void()> callback;
-
 };
-
 
 
 #endif //BUTTON_H

@@ -10,9 +10,9 @@ State::State(StateMachine &sm, sf::RenderWindow &window) : p_stateMachine(&sm), 
 
 void State::HandleEvents()
 {
-    for(sf::Event event{}; p_window->pollEvent(event);)
+    for (sf::Event event{}; p_window->pollEvent(event);)
     {
-        switch(event.type)
+        switch (event.type)
         {
             case sf::Event::Closed:
                 p_window->close();
@@ -21,11 +21,6 @@ void State::HandleEvents()
                 //Key repeat enabled
                 HandleKeyboardInput(event.key.code);
                 break;
-
         }
     }
 }
-
-
-
-

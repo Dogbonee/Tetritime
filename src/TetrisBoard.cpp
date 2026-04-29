@@ -12,7 +12,7 @@
 
 TetrisBoard::TetrisBoard(Piece* pCurrentPiece) : m_piecePos(5,0), p_currentPiece(pCurrentPiece)
 {
-    m_frame.setSize(sf::Vector2f(252, 500));
+    m_frame.setSize(sf::Vector2f(250, 500));
     m_frame.setFillColor(sf::Color::Transparent);
     m_frame.setOutlineColor(sf::Color::Red);
     m_frame.setOutlineThickness(30);
@@ -236,7 +236,7 @@ void TetrisBoard::AddRect(PieceType type, sf::Vector2i pos)
     sf::RectangleShape rect(sf::Vector2f(System::PIECE_SIZE, System::PIECE_SIZE));
     rect.setPosition(System::PIECE_SIZE * pos.x + System::X_OFFSET, System::PIECE_SIZE * (pos.y-1) + System::Y_OFFSET - System::PIECE_SIZE/2);
     rect.setOutlineColor(sf::Color::Black);
-    rect.setOutlineThickness(1);
+    rect.setOutlineThickness(-0.5);
     rect.setFillColor(System::ColorPiece(type));
     m_vRect.push_back(rect);
 }

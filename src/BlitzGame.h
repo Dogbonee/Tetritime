@@ -7,8 +7,7 @@
 #include "Game.h"
 
 
-class BlitzGame : public Game{
-
+class BlitzGame : public Game {
     sf::Text m_timeText;
 
     float m_elapsedTime;
@@ -16,11 +15,12 @@ class BlitzGame : public Game{
 public:
     BlitzGame(StateMachine &sm, sf::RenderWindow &window);
 
-    void Update(const float& dt) override;
-    void Render() override;
-    void UpdateElapsedTime(const float& dt);
-};
+    void Update(const float &dt) override;
 
+    void Render() override;
+
+    void UpdateElapsedTime(const float &dt);
+};
 
 
 #endif //BLITZGAME_H

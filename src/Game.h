@@ -17,16 +17,15 @@
 
 #include "Button.h"
 
-class Game : public State{
-
-
-
-
+class Game : public State {
 protected:
     void Render() override;
+
     void HandleEvents() override;
+
     void HandleKeyboardInput(sf::Keyboard::Key keyCode) override;
-    void Update(const float& dt) override;
+
+    void Update(const float &dt) override;
 
     sf::Clock m_clock;
     float m_tickLength;
@@ -36,10 +35,8 @@ protected:
     GameOver m_gameOverScreen;
     sf::Text m_fpsCounter;
 
-
 public:
     Game(StateMachine &sm, sf::RenderWindow &window);
-
 
 protected:
     //Game objects
@@ -80,20 +77,30 @@ protected:
     //Game functions
     void SpawnPiece(PieceType type);
 
-    virtual void ManageGameClock(const float& dt);
+    virtual void ManageGameClock(const float &dt);
+
     virtual bool Tick();
+
     virtual void HandleScoring();
+
     void MovePieceComponents(MovementOption direction);
+
     void RotatePieceComponents(RotationOption direction);
+
     void HandleGhostPiece();
+
     void ResetGhostPiece();
+
     void ManageGhostPiece();
+
     void HandleNextPiece(PieceType type = static_cast<PieceType>(std::rand() % 7));
+
     void HoldPiece();
+
     virtual void DropPiece();
+
     void TriggerGameOver();
 };
-
 
 
 #endif //APP_H

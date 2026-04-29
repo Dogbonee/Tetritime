@@ -10,9 +10,7 @@
 #include "Game.h"
 #include <fstream>
 
-class DailyGame : public Game{
-
-
+class DailyGame : public Game {
     sf::Text m_dailyText;
 
     bool m_hasPlaced;
@@ -23,15 +21,20 @@ class DailyGame : public Game{
     unsigned int m_timeLeft;
 
     void HandleTimeText();
-    void LoadBoard(std::ifstream& file);
+
+    void LoadBoard(std::ifstream &file);
 
     char intToHex(int num);
+
     int hexToInt(char input);
 
     //bool Tick() override;
-    void ManageGameClock(const float& dt) override;
+    void ManageGameClock(const float &dt) override;
+
     void Render() override;
+
     void DropPiece() override;
+
     void ConfirmPiece();
 
 
@@ -39,13 +42,9 @@ class DailyGame : public Game{
 
 public:
     DailyGame(StateMachine &sm, sf::RenderWindow &window);
-    void Update(const float& dt) override;
 
-
-
-
+    void Update(const float &dt) override;
 };
-
 
 
 #endif //DAILYGAME_H
